@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-tugas-pnt
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-tugas-pnt
+  template:
+    metadata:
+      labels:
+        app: myt-tugas-pnt
+    spec:
+      containers:
+      - name: tugas-pnt
+        image: girven/tugas-pnt-webapp:latest
+        resources:
+          requests:
+            memory: "500Mi"
+            cpu: "110m"
+          limits:
+            memory: "600Mi"
+            cpu: "110m"
+        ports:
+        - containerPort: 3000
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
